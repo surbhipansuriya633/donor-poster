@@ -167,7 +167,7 @@ function downloadImage() {
 
   const a = document.createElement("a");
   a.href = canvas.toDataURL("image/png");
-  a.download = "blood-donor.png";
+  a.download = "blood-donation.png";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
