@@ -269,7 +269,13 @@ function renderText() {
 
   const nameText = (nameInput?.value || "").toLowerCase();
   const locationText = locationInput?.value || "";
-  const dateText = dateInput?.value || "";
+
+  const dateRaw = dateInput?.value || "";
+  let dateText = "";
+  if (dateRaw) {
+    const [yyyy, mm, dd] = dateRaw.split("-");
+    dateText = `${dd}-${mm}-${yyyy}`;
+  }
 
   // Helper: draw text with background box
   function fillTextWithBackground(ctx, text, x, y, {
@@ -333,7 +339,7 @@ function renderText() {
 
   // Location
   ctx.save(); // ✅ save canvas state before setting shadow
-  ctx.font = "bold 55px Arial";
+  ctx.font = "bold 65px Arial";
   ctx.fillStyle = "#fff";
   ctx.shadowColor = "#c20000";
   ctx.shadowOffsetX = 4;
@@ -344,7 +350,7 @@ function renderText() {
 
   // Date
   ctx.save(); // ✅ again for date
-  ctx.font = "bold 55px Arial";
+  ctx.font = "bold 65px Arial";
   ctx.fillStyle = "#fff";
   ctx.shadowColor = "#c20000";
   ctx.shadowOffsetX = 4;
