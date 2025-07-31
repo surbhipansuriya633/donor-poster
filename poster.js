@@ -334,15 +334,15 @@ function renderText() {
   });
 
   // Location and Date (normal text, no bg)
-  ctx.font = "bold 45px Arial";
+  ctx.font = "bold 55px Arial";
   ctx.fillStyle = "#fff";
-  ctx.shadowColor = "rgba(0,0,0,0.6)";
-  ctx.shadowOffsetX = 3;
-  ctx.shadowOffsetY = 3;
+  ctx.shadowColor = "#c20000";
+  ctx.shadowOffsetX = 4;
+  ctx.shadowOffsetY = 4;
   ctx.shadowBlur = 4;
 
-  ctx.fillText(capitalize(locationText), 200, 1640);
-  ctx.fillText(dateText, 200, 1807);
+  ctx.fillText(capitalize(locationText), 200, 1680);
+  ctx.fillText(dateText, 200, 1820);
 
   // Validation
   if (nameError) {
