@@ -265,7 +265,6 @@ function capitalize(text) {
 }
 
 function renderText() {
-  // Ensure background + image drawn
   drawBase();
 
   const nameText = (nameInput?.value || "").toLowerCase();
@@ -276,7 +275,7 @@ function renderText() {
   function fillTextWithBackground(ctx, text, x, y, {
     font = "bold 35px Arial",
     textColor = "#fff",
-    bgColor = "#b44c43",      // 🔹 BG color changed here
+    bgColor = "#b44c43",
     paddingX = 12,
     paddingY = 8,
     radius = 8,
@@ -294,13 +293,12 @@ function renderText() {
     const textH = asc + desc;
     const textW = m.width || 0;
 
-    // Background rect
+    // Background box
     const bx = x - paddingX;
     const by = y - asc - paddingY;
     const bw = textW + paddingX * 2;
     const bh = textH + paddingY * 2;
 
-    // Rounded rect path
     const r = Math.min(radius, bw / 2, bh / 2);
     ctx.beginPath();
     ctx.moveTo(bx + r, by);
@@ -320,29 +318,40 @@ function renderText() {
     ctx.shadowBlur = shadowBlur;
 
     ctx.fillText(text, x, y);
-    ctx.restore();
+    ctx.restore(); // remove shadow etc.
   }
 
-  // Name with background box
+  // Name with background + shadow
   fillTextWithBackground(ctx, capitalize(nameText), 110, 1450, {
     font: "bold 50px Arial",
-    bgColor: "#b44c43",   // 🔹 Your required BG color
+    bgColor: "#b44c43",
     textColor: "#fff",
     paddingX: 14,
     paddingY: 10,
     radius: 10
   });
 
-  // Location and Date (normal text, no bg)
+  // Location
+  ctx.save(); // ✅ save canvas state before setting shadow
   ctx.font = "bold 55px Arial";
   ctx.fillStyle = "#fff";
   ctx.shadowColor = "#c20000";
   ctx.shadowOffsetX = 4;
   ctx.shadowOffsetY = 4;
   ctx.shadowBlur = 4;
-
   ctx.fillText(capitalize(locationText), 200, 1680);
+  ctx.restore(); // ✅ restore to clear shadow effect
+
+  // Date
+  ctx.save(); // ✅ again for date
+  ctx.font = "bold 55px Arial";
+  ctx.fillStyle = "#fff";
+  ctx.shadowColor = "#c20000";
+  ctx.shadowOffsetX = 4;
+  ctx.shadowOffsetY = 4;
+  ctx.shadowBlur = 4;
   ctx.fillText(dateText, 200, 1820);
+  ctx.restore(); // ✅ clear shadow again
 
   // Validation
   if (nameError) {
@@ -350,8 +359,6 @@ function renderText() {
   }
 }
 
-
-// Download final PNG
 function downloadImage() {
   // ensure at least one draw
   drawBase();
