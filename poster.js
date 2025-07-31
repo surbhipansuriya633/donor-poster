@@ -134,7 +134,7 @@ function renderText() {
 
   // Location
   ctx.save(); // ✅ save canvas state before setting shadow
-  ctx.font = "bold 65px Arial";
+  ctx.font = "bold 75px Arial";
   ctx.fillStyle = "#fff";
   ctx.shadowColor = "#c20000";
   ctx.shadowOffsetX = 4;
